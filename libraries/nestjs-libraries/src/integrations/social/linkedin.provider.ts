@@ -13,6 +13,7 @@ import {
   BadBody,
   SocialAbstract,
 } from '@gitroom/nestjs-libraries/integrations/social.abstract';
+import { ModuleRef } from '@nestjs/core';
 
 export class LinkedinProvider extends SocialAbstract implements SocialProvider {
   identifier = 'linkedin';
@@ -287,6 +288,7 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
     id: string,
     accessToken: string,
     postDetails: PostDetails[],
+    inject: ModuleRef,
     type = 'personal' as 'company' | 'personal'
   ): Promise<PostResponse[]> {
     const [firstPost, ...restPosts] = postDetails;

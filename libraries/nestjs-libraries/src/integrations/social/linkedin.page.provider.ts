@@ -8,6 +8,7 @@ import {
 import { makeId } from '@gitroom/nestjs-libraries/services/make.is';
 import { LinkedinProvider } from '@gitroom/nestjs-libraries/integrations/social/linkedin.provider';
 import dayjs from 'dayjs';
+import { ModuleRef } from '@nestjs/core';
 
 export class LinkedinPageProvider
   extends LinkedinProvider
@@ -206,9 +207,10 @@ export class LinkedinPageProvider
   override async post(
     id: string,
     accessToken: string,
-    postDetails: PostDetails[]
+    postDetails: PostDetails[],
+    moduleRef: ModuleRef
   ): Promise<PostResponse[]> {
-    return super.post(id, accessToken, postDetails, 'company');
+    return super.post(id, accessToken, postDetails, moduleRef, 'company');
   }
 
   async analytics(

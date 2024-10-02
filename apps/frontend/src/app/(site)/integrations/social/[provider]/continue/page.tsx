@@ -21,10 +21,19 @@ export default async function Page({
     };
   }
 
+  if (provider === 'discord') {
+    searchParams = {
+      ...searchParams,
+      code: searchParams.code + ':' + searchParams.guild_id,
+    };
+  }
+
   const data = await internalFetch(`/integrations/social/${provider}/connect`, {
     method: 'POST',
     body: JSON.stringify(searchParams),
   });
+
+  console.log(data.status);
 
   if (data.status === HttpStatusCode.NotAcceptable) {
     return redirect(`/launches?scope=missing`);

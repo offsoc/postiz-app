@@ -1,6 +1,7 @@
 import { CustomTransportStrategy, Server } from '@nestjs/microservices';
 import { Queue, Worker } from 'bullmq';
 import { ioRedis } from '@gitroom/nestjs-libraries/redis/redis.service';
+import { ProvidersInterface } from '@gitroom/bots/providers/providers.interface';
 
 export class BullMqServer extends Server implements CustomTransportStrategy {
   queues: Map<string, Queue>;
@@ -9,7 +10,7 @@ export class BullMqServer extends Server implements CustomTransportStrategy {
   /**
    * This method is triggered when you run "app.listen()".
    */
-  listen(callback: () => void) {
+  listen(callback: () => void, providers: ProvidersInterface<any>[] = []) {
     this.queues = [...this.messageHandlers.keys()].reduce((all, pattern) => {
       all.set(pattern, new Queue(pattern, { connection: ioRedis }));
       return all;
@@ -20,16 +21,30 @@ export class BullMqServer extends Server implements CustomTransportStrategy {
         return new Worker(
           pattern,
           async (job) => {
-            const stream$ = this.transformToObservable(
-              await handler(job.data.payload, job)
-            );
+            // eslint-disable-next-line no-async-promise-executor
+            return new Promise<any>(async (resolve, reject) => {
+              const provider = providers.length
+                ? {
+                    provider: providers.find(
+                      (p) => p.identifier === job.data.payload.provider
+                    ),
+                  }
+                : {};
 
-            this.send(stream$, (packet) => {
-              if (packet.err) {
-                return job.discard();
-              }
+              // @ts-ignore
+              const stream$ = this.transformToObservable(
+                await handler({ ...job.data.payload, ...provider }, job)
+              );
 
-              return true;
+              this.send(stream$, (packet) => {
+                if (packet.err) {
+                  reject(packet.err);
+                  return job.discard();
+                }
+
+                resolve(packet.response);
+                return true;
+              });
             });
           },
           {

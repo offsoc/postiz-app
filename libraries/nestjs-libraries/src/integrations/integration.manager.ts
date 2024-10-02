@@ -15,6 +15,7 @@ import { PinterestProvider } from '@gitroom/nestjs-libraries/integrations/social
 import { DribbbleProvider } from '@gitroom/nestjs-libraries/integrations/social/dribbble.provider';
 import { LinkedinPageProvider } from '@gitroom/nestjs-libraries/integrations/social/linkedin.page.provider';
 import { ThreadsProvider } from '@gitroom/nestjs-libraries/integrations/social/threads.provider';
+import { DiscordProvider } from '@gitroom/nestjs-libraries/integrations/social/discord.provider';
 
 const socialIntegrationList = [
   new XProvider(),
@@ -28,6 +29,7 @@ const socialIntegrationList = [
   new TiktokProvider(),
   new PinterestProvider(),
   new DribbbleProvider(),
+  new DiscordProvider()
 ];
 
 const articleIntegrationList = [
@@ -54,6 +56,7 @@ export class IntegrationManager {
     return socialIntegrationList.map((p) => p.identifier);
   }
   getSocialIntegration(integration: string): SocialProvider {
+    // @ts-ignore
     return socialIntegrationList.find((i) => i.identifier === integration)!;
   }
   getAllowedArticlesIntegrations() {

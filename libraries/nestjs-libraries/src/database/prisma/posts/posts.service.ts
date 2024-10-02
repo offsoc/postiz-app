@@ -21,6 +21,7 @@ import {
 } from '@gitroom/nestjs-libraries/integrations/social.abstract';
 import { BullMqClient } from '@gitroom/nestjs-libraries/bull-mq-transport-new/client';
 import { timer } from '@gitroom/helpers/utils/timer';
+import { ModuleRef } from '@nestjs/core';
 
 type PostWithConditionals = Post & {
   integration?: Integration;
@@ -38,7 +39,8 @@ export class PostsService {
     private _stripeService: StripeService,
     private _extractContentService: ExtractContentService,
     private _openAiService: OpenaiService,
-    private _integrationService: IntegrationService
+    private _integrationService: IntegrationService,
+    private _injector: ModuleRef
   ) {}
 
   async getPostsRecursively(
@@ -278,7 +280,8 @@ export class PostsService {
                 ? process.env.UPLOAD_DIRECTORY + m.path
                 : m.path,
           })),
-        }))
+        })),
+        this._injector
       );
 
       for (const post of publishedPosts) {
@@ -324,7 +327,8 @@ export class PostsService {
     const { postId, releaseURL } = await getIntegration.post(
       integration.token,
       newPosts.map((p) => p.content).join('\n\n'),
-      JSON.parse(newPosts[0].settings || '{}')
+      JSON.parse(newPosts[0].settings || '{}'),
+      this._injector
     );
 
     await this._notificationService.inAppNotification(

@@ -1,3 +1,5 @@
+import { ModuleRef } from '@nestjs/core';
+
 export interface IAuthenticator {
   authenticate(params: {
     code: string;
@@ -35,7 +37,8 @@ export interface ISocialMediaIntegration {
   post(
     id: string,
     accessToken: string,
-    postDetails: PostDetails[]
+    postDetails: PostDetails[],
+    moduleRef: ModuleRef
   ): Promise<PostResponse[]>; // Schedules a new post
 }
 

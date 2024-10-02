@@ -13,6 +13,7 @@ import TiktokProvider from '@gitroom/frontend/components/launches/providers/tikt
 import PinterestProvider from '@gitroom/frontend/components/launches/providers/pinterest/pinterest.provider';
 import DribbbleProvider from '@gitroom/frontend/components/launches/providers/dribbble/dribbble.provider';
 import ThreadsProvider from '@gitroom/frontend/components/launches/providers/threads/threads.provider';
+import DiscordProvider from '@gitroom/frontend/components/launches/providers/discord/discord.provider';
 
 export const Providers = [
     {identifier: 'devto', component: DevtoProvider},
@@ -29,6 +30,7 @@ export const Providers = [
     {identifier: 'pinterest', component: PinterestProvider},
     {identifier: 'dribbble', component: DribbbleProvider},
     {identifier: 'threads', component: ThreadsProvider},
+    {identifier: 'discord', component: DiscordProvider},
 ];
 
 

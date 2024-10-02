@@ -129,7 +129,7 @@ export class IntegrationsController {
       }
 
       if (integrationProvider[body.name]) {
-        return integrationProvider[body.name](getIntegration.token, body.data);
+        return integrationProvider[body.name](getIntegration.token, body.data, getIntegration.internalId);
       }
       throw new Error('Function not found');
     }
@@ -144,7 +144,7 @@ export class IntegrationsController {
       }
 
       if (integrationProvider[body.name]) {
-        return integrationProvider[body.name](getIntegration.token, body.data);
+        return integrationProvider[body.name](getIntegration.token, body.data, getIntegration.internalId);
       }
       throw new Error('Function not found');
     }

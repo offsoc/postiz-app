@@ -27,6 +27,7 @@ import { CopilotController } from '@gitroom/backend/api/routes/copilot.controlle
 import { AgenciesController } from '@gitroom/backend/api/routes/agencies.controller';
 import { PublicController } from '@gitroom/backend/api/routes/public.controller';
 import { RootController } from '@gitroom/backend/api/routes/root.controller';
+import { ProviderClient } from '@gitroom/bots/provider.client';
 
 const authenticatedController = [
   UsersController,
@@ -76,6 +77,7 @@ const authenticatedController = [
     PermissionsService,
     CodesService,
     IntegrationManager,
+    ProviderClient
   ],
   get exports() {
     return [...this.imports, ...this.providers];

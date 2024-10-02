@@ -1,3 +1,5 @@
+import { ModuleRef } from '@nestjs/core';
+
 export interface ArticleIntegrationsInterface {
   authenticate(
     token: string
@@ -11,7 +13,8 @@ export interface ArticleIntegrationsInterface {
   post(
     token: string,
     content: string,
-    settings: object
+    settings: object,
+    moduleRef: ModuleRef
   ): Promise<{ postId: string; releaseURL: string }>;
 }
 
