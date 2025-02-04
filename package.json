@@ -42,7 +42,7 @@
     "@copilotkit/react-ui": "^1.4.7",
     "@copilotkit/runtime": "^1.4.7",
     "@hookform/resolvers": "^3.3.4",
-    "@langchain/community": "^0.3.19",
+    "@langchain/community": "^0.3.21",
     "@langchain/core": "^0.3.26",
     "@langchain/langgraph": "^0.2.34",
     "@langchain/openai": "^0.3.16",
@@ -156,7 +156,7 @@
     "sharp": "^0.33.4",
     "simple-statistics": "^7.8.3",
     "stripe": "^15.5.0",
-    "sweetalert2": "^11.6.13",
+    "sweetalert2": "^11.15.10",
     "swr": "^2.2.5",
     "tailwind-scrollbar": "^3.1.0",
     "tailwindcss": "3.4.3",
@@ -214,8 +214,8 @@
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
     "typescript": "5.5.4",
-    "vite": "^5.0.0",
-    "vitest": "1.6.0"
+    "vite": "^5.4.14",
+    "vitest": "1.6.1"
   },
   "volta": {
     "node": "20.17.0"
